@@ -3,6 +3,7 @@
 import kinesis = require('@aws-cdk/aws-kinesis');
 import kinesisfirehose = require('@aws-cdk/aws-kinesisfirehose');
 import athena = require('@aws-cdk/aws-athena');
+import s3 = require('@aws-cdk/aws-s3');
 import cdk = require('@aws-cdk/cdk');
 
 class MyStack extends cdk.Stack {
@@ -107,9 +108,14 @@ SELECT * FROM userclicks.user_clicks`,
 SELECT * FROM userclicks.user_clicks`
         });
 
+        const s3dcf98ed = new s3.CfnBucket(this, 's3dcf98ed', {
+            bucketName: "anzwebinar2019"
+        });
+
         new cdk.Output(this, 'kinesisc5cff84Ref', { value: kinesisc5cff84.ref, disableExport: true })
         new cdk.Output(this, 'kinesis1001474Ref', { value: kinesis1001474.ref, disableExport: true })
-        new cdk.Output(this, 'athena36afefaRef', { value: athena36afefa.ref, disableExport: true });
+        new cdk.Output(this, 'athena36afefaRef', { value: athena36afefa.ref, disableExport: true })
+        new cdk.Output(this, 's3dcf98edRef', { value: s3dcf98ed.ref, disableExport: true });
     }
 }
 
@@ -118,4 +124,3 @@ const app = new cdk.App();
 new MyStack(app, 'my-stack-name', { env: { region: 'us-west-2' } });
 
 app.run();
-
