@@ -5,6 +5,7 @@ import kinesisfirehose = require('@aws-cdk/aws-kinesisfirehose');
 import athena = require('@aws-cdk/aws-athena');
 import s3 = require('@aws-cdk/aws-s3');
 import lambda = require('@aws-cdk/aws-lambda');
+import iam = require('@aws-cdk/aws-iam');
 import cdk = require('@aws-cdk/cdk');
 
 class MyStack extends cdk.Stack {
@@ -131,11 +132,27 @@ SELECT * FROM userclicks.user_clicks`
             }
         });
 
+        const iam958cf9a = new iam.CfnRole(this, 'iam958cf9a', {
+            path: "/",
+            roleName: "firehose_delivery_role",
+            assumeRolePolicyDocument: "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Sid\":\"\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"firehose.amazonaws.com\"},\"Action\":\"sts:AssumeRole\",\"Condition\":{\"StringEquals\":{\"sts:ExternalId\":\"805580953652\"}}}]}",
+            maxSessionDuration: 3600
+        });
+
+        const iamc087475 = new iam.CfnRole(this, 'iamc087475', {
+            path: "/",
+            roleName: "MythicalMysfitsStreamingS-MysfitsClicksProcessorRo-U74OV2E30VKM",
+            assumeRolePolicyDocument: "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"lambda.amazonaws.com\"},\"Action\":\"sts:AssumeRole\"}]}",
+            maxSessionDuration: 3600
+        });
+
         new cdk.Output(this, 'kinesisc5cff84Ref', { value: kinesisc5cff84.ref, disableExport: true })
         new cdk.Output(this, 'kinesis1001474Ref', { value: kinesis1001474.ref, disableExport: true })
         new cdk.Output(this, 'athena36afefaRef', { value: athena36afefa.ref, disableExport: true })
         new cdk.Output(this, 's3dcf98edRef', { value: s3dcf98ed.ref, disableExport: true })
-        new cdk.Output(this, 'lambda4192b8cRef', { value: lambda4192b8c.ref, disableExport: true });
+        new cdk.Output(this, 'lambda4192b8cRef', { value: lambda4192b8c.ref, disableExport: true })
+        new cdk.Output(this, 'iam958cf9aRef', { value: iam958cf9a.ref, disableExport: true })
+        new cdk.Output(this, 'iamc087475Ref', { value: iamc087475.ref, disableExport: true });
     }
 }
 
